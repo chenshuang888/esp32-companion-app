@@ -1,0 +1,8 @@
+bleak>=0.22
+requests>=2.31
+customtkinter>=5.2.0,<6
+psutil>=5.9
+winsdk>=1.0.0b10; sys_platform == "win32"
+pystray>=0.19
+Pillow>=10.0
+just_playback>=0.1.8

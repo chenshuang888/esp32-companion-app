@@ -1,0 +1,9 @@
+[project]
+name = "esp32-companion-user"
+version = "0.1.0"
+description = "ESP32 桌面助手 —— 蓝牙连接 / 市场安装 / 音乐同步"
+requires-python = ">=3.10"
+readme = "README.md"
+
+[tool.setuptools.packages.find]
+where = ["src"]

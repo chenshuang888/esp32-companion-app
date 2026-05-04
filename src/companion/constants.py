@@ -1,0 +1,86 @@
+"""所有 BLE characteristic UUID + 协议常量集中在这里。
+
+跟固件 services/*_service.h 严格对齐。改这里时必须同步改固件。
+"""
+
+# ==== 设备 ====
+DEFAULT_DEVICE_NAME = "ESP32-S3-DEMO"
+
+# ==== Time Service (CTS) ====
+CTS_CHAR_UUID       = "00002a2b-0000-1000-8000-00805f9b34fb"   # READ + WRITE + NOTIFY
+CTS_STRUCT          = "<HBBBBBBBB"   # year u16, mo/d/h/m/s u8, dow u8, frac u8, reason u8
+
+# ==== Weather Service ====
+WEATHER_CHAR_UUID     = "8a5c0002-0000-4aef-b87e-4fa1e0c7e0f6"   # WRITE
+WEATHER_REQ_CHAR_UUID = "8a5c000b-0000-4aef-b87e-4fa1e0c7e0f6"   # NOTIFY
+WEATHER_STRUCT        = "<hhhBBI24s32s"   # 68 B
+WEATHER_CACHE_TTL_S   = 600
+
+WC_UNKNOWN, WC_CLEAR, WC_CLOUDY, WC_OVERCAST = 0, 1, 2, 3
+WC_RAIN, WC_SNOW, WC_FOG, WC_THUNDER = 4, 5, 6, 7
+
+# ==== Notify Service ====
+NOTIFY_CHAR_UUID  = "8a5c0004-0000-4aef-b87e-4fa1e0c7e0f6"   # WRITE only
+NOTIFY_STRUCT     = "<IBB2x32s96s"   # 136 B
+NOTIFY_TITLE_MAX  = 32
+NOTIFY_BODY_MAX   = 96
+
+NOTIFY_CAT_GENERIC  = 0
+NOTIFY_CAT_MESSAGE  = 1
+NOTIFY_CAT_EMAIL    = 2
+NOTIFY_CAT_CALL     = 3
+NOTIFY_CAT_CALENDAR = 4
+NOTIFY_CAT_SOCIAL   = 5
+NOTIFY_CAT_NEWS     = 6
+NOTIFY_CAT_ALERT    = 7
+NOTIFY_PRIO_NORMAL  = 1
+
+# ==== System Service ====
+SYSTEM_CHAR_UUID     = "8a5c000a-0000-4aef-b87e-4fa1e0c7e0f6"   # WRITE
+SYSTEM_REQ_CHAR_UUID = "8a5c000c-0000-4aef-b87e-4fa1e0c7e0f6"   # NOTIFY
+SYSTEM_STRUCT        = "<BBBBBBhIHH"   # 16 B
+SYSTEM_PUSH_INTERVAL_S  = 2.0
+SYSTEM_BATTERY_ABSENT   = 255
+SYSTEM_CHARGING_ABSENT  = 255
+SYSTEM_CPU_TEMP_INVALID = -32768
+
+# ==== Media Service ====
+MEDIA_CHAR_UUID        = "8a5c0008-0000-4aef-b87e-4fa1e0c7e0f6"   # WRITE
+MEDIA_BUTTON_CHAR_UUID = "8a5c000d-0000-4aef-b87e-4fa1e0c7e0f6"   # NOTIFY
+MEDIA_PAYLOAD_STRUCT   = "<BBhhHI48s32s"   # 92 B（NOWPLAYING 子载荷）
+MEDIA_BTN_STRUCT       = "<BBH"            # 4 B
+MEDIA_TITLE_MAX_BYTES  = 47
+MEDIA_ARTIST_MAX_BYTES = 31
+MEDIA_PERIODIC_RESYNC_S = 10.0
+
+# v2 协议：WRITE/NOTIFY 首字节 type 分发
+MEDIA_MSG_NOWPLAYING       = 0x01
+MEDIA_MSG_PLAYLIST_BEGIN   = 0x02
+MEDIA_MSG_PLAYLIST_ITEM    = 0x03
+MEDIA_MSG_PLAYLIST_END     = 0x04
+MEDIA_NOTIFY_BUTTON        = 0x01
+MEDIA_NOTIFY_PLAY_TRACK    = 0x02
+
+# 歌单（与 ESP 端 media_service.h 严格对齐）
+MEDIA_PLAYLIST_BEGIN_STRUCT = "<HH"             # total_count, version
+MEDIA_PLAYLIST_ITEM_STRUCT  = "<H40s24s"        # index, title[40], artist[24]
+MEDIA_PLAYLIST_TITLE_BYTES  = 39                # 末尾留 \0
+MEDIA_PLAYLIST_ARTIST_BYTES = 23
+MEDIA_PLAYLIST_MAX_ITEMS    = 50
+MEDIA_PLAY_TRACK_STRUCT     = "<HH"             # track_index, seq
+MEDIA_PLAYLIST_PUSH_GAP_S   = 0.04              # 每条 ITEM 之间 gap
+
+# ==== Dynapp Bridge (a3a3) ====
+BRIDGE_SVC_UUID = "a3a30001-0000-4aef-b87e-4fa1e0c7e0f6"
+BRIDGE_RX_UUID  = "a3a30002-0000-4aef-b87e-4fa1e0c7e0f6"   # PC→ESP WRITE
+BRIDGE_TX_UUID  = "a3a30003-0000-4aef-b87e-4fa1e0c7e0f6"   # ESP→PC NOTIFY
+BRIDGE_MAX_PAYLOAD = 200
+
+# ==== Dynapp Upload (a3a4) ====
+UPLOAD_SVC_UUID    = "a3a40001-0000-4aef-b87e-4fa1e0c7e0f6"
+UPLOAD_RX_UUID     = "a3a40002-0000-4aef-b87e-4fa1e0c7e0f6"   # PC→ESP WRITE
+UPLOAD_STATUS_UUID = "a3a40003-0000-4aef-b87e-4fa1e0c7e0f6"   # ESP→PC NOTIFY
+
+# ==== 连接 ====
+SCAN_TIMEOUT_S    = 10.0
+RECONNECT_DELAY_S = 3.0
