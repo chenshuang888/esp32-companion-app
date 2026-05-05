@@ -1,8 +1,14 @@
 # ESP32 桌面助手
 
+> **🌐 桌面伴侣项目（共 4 仓）**
+> [开发主仓 / 设备固件源](https://github.com/chenshuang888/esp32-desktop-companion)
+> · [设备固件发布版](https://github.com/chenshuang888/esp32-companion-firmware)
+> · **▸ 本仓：Windows 桌面端**
+> · [应用市场](https://github.com/chenshuang888/esp32-marketplace)（[在线 demo](https://marketplace.chenshuang.fun)）
+
 通过蓝牙连接 ESP32-S3 设备，从市场一键安装 App、把本地音乐同步到手表的 Windows 桌面端。
 
-> 配套固件请刷 `demo6` 系列（默认 BLE 设备名 `ESP32-S3-DEMO`）。
+> 配套固件请刷 [esp32-companion-firmware](https://github.com/chenshuang888/esp32-companion-firmware)（默认 BLE 设备名 `ESP32-S3-DEMO`）。
 
 ---
 
@@ -26,7 +32,7 @@
 
 - Windows 10 1803 及以上（winsdk / SMTC 依赖）
 - 自带或外接的 BLE 蓝牙适配器
-- ESP32-S3 端已刷配套 `demo6` 固件，BLE 设备名与 App 配置一致
+- ESP32-S3 端已刷配套 `esp32-companion-firmware` 固件，BLE 设备名与 App 配置一致
 
 ---
 
@@ -96,7 +102,7 @@ src/companion/
 
 ## 常见问题
 
-- **状态点一直未连接**：检查蓝牙是否开启 + 设备是否在 `demo6` 固件 + BLE 设备名是否一致
+- **状态点一直未连接**：检查蓝牙是否开启 + 设备是否在 `esp32-companion-firmware` 固件 + BLE 设备名是否一致
 - **装含「需要桌面扩展」的 App 后无效**：装完需重启本程序加载新扩展
 - **音乐同步报缺 ffprobe**：装一下 `ffmpeg`（含 `ffprobe`），加进 PATH 后重启程序
 - **多台同名设备**：在 `config.json` 里写死 `device_address`（MAC）锁定其中一台
